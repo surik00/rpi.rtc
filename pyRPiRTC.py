@@ -7,16 +7,16 @@ class DS1302:
     # 5us
     CLK_DELAY = 5E-6
 
-    def __init__(self, clk_pin=11, data_pin=13, ce_pin=15):
+    def __init__(self, ce_pin=11, data_pin=12, clk_pin=13):
         # init GPIO
         # no warnings
         GPIO.setwarnings(False)
         # use safer pin number (avoid GPIO renumber on each Pi release)
         GPIO.setmode(GPIO.BOARD)
         # set GPIO pins
-        self._clk_pin = clk_pin
-        self._data_pin = data_pin
         self._ce_pin = ce_pin
+        self._data_pin = data_pin
+        self._clk_pin = clk_pin
         # CLK and CE (sometime call RST) pin are always output
         GPIO.setup(self._clk_pin, GPIO.OUT, initial=GPIO.LOW)
         GPIO.setup(self._ce_pin, GPIO.OUT, initial=GPIO.LOW)
@@ -165,7 +165,7 @@ class DS1302:
         byte_l[3] = (dt.day // 10) << 4 | dt.day % 10
         byte_l[4] = (dt.month // 10) << 4 | dt.month % 10
         byte_l[5] = (dt.weekday() // 10) << 4 | dt.weekday() % 10
-        byte_l[6] = ((dt.year-2000) // 10) << 4 | (dt.year-2000) % 10
+        byte_l[6] = ((dt.year - 2000) // 10) << 4 | (dt.year - 2000) % 10
         # start message
         self._start_tx()
         # write clock burst
@@ -182,3 +182,6 @@ class DS1302:
         Clean all GPIOs.
         """
         GPIO.cleanup()
+
+    def __del__(self):
+        self.close()
