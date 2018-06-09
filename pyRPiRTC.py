@@ -152,6 +152,17 @@ class DS1302:
         # return datetime value
         return datetime.datetime(year, month, day, hour, minute, second)
 
+    def read_utc_timestamp(self):
+        """
+        Read current date and time from RTC chip.
+
+        :return: unix timestamp
+        :rtype: int
+        """
+        # start message
+        dt = self.read_datetime()
+        return int(time.mktime(dt.timetuple()))
+
     def write_datetime(self, dt):
         """
         Write a python datetime to RTC chip.

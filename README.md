@@ -56,6 +56,7 @@ print('Now is (UTC)', format_dt(dt_now))
 rtc.write_datetime(dt_now)
 
 dt_rtc = rtc.read_datetime()
+# to get unix timestamp use .read_timestamp
 print('RTC time is:', format_dt(dt_rtc))
 # RTC time is: 2018.06.09 13:29:03
 print('With applied timezone info current time is:', format_dt(utc_to_local(dt_rtc)))
