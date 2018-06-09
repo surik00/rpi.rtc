@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pyRPiRTC',
-    version='1.0.0',
+    version='1.0.1',
     license='MIT',
     url='https://github.com/sourceperl/rpi.rtc',
     platforms='any',

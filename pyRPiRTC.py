@@ -4,13 +4,15 @@ import RPi.GPIO as GPIO
 
 
 class DS1302:
-    # 5us
+
     CLK_DELAY = 5E-6
 
-    def __init__(self, ce_pin=11, data_pin=12, clk_pin=13):
+    def __init__(self, ce_pin=11, data_pin=12,
+                 clk_pin=13, disable_warnings=False):
         # init GPIO
-        # no warnings
-        GPIO.setwarnings(False)
+        # no warnings if disable_warnings
+        if disable_warnings:
+            GPIO.setwarnings(False)
         # use safer pin number (avoid GPIO renumber on each Pi release)
         GPIO.setmode(GPIO.BOARD)
         # set GPIO pins
