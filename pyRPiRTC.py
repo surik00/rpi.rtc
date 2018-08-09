@@ -159,9 +159,8 @@ class DS1302:
         :return: unix timestamp
         :rtype: int
         """
-        # start message
         dt = self.read_datetime()
-        return int(dt.timestamp())
+        return int(dt.replace(tzinfo=datetime.timezone.utc).timestamp())
 
     def write_datetime(self, dt):
         """
